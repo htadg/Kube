@@ -1,2 +1,2 @@
-# Kuke-Kube
+# Kube
 A remastered version of the Game Kuke Kube
