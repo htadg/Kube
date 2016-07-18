@@ -5,7 +5,6 @@
 	right:0;
 	bottom:0;
 	left:0;
-<<<<<<< HEAD
 	background-color: #EC407A;
 }
 
@@ -120,23 +119,6 @@
 
 
 
-=======
-	background-color: #FF4081;
-}
-
-#bigbox
-{
-	background-color: rgba(238,238,238 ,1);
-	border-radius: 7px;
-	height: 38vw;
-	width: 38vw;
-	margin: auto;
-	padding-left: 6px;
-	padding-top: 3px;
-	padding-bottom: 3px;
-}
-
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 #SmallBox{
 	float: left;
 	border-radius: 3px;
@@ -145,54 +127,9 @@
 	margin-right: 6px;
 }
 
-<<<<<<< HEAD
 
-=======
-#countdown{
-	text-align: center;
-	margin: auto;
-	color: #263238e;
-	padding-top: 1vw;
-	padding-bottom: 1vw;
-	font-size: 4vw;
-	font-family: 'Passion One', cursive, sans-serif;
-}
-
-#score{
-	text-align: center;
-	color: #263238;
-	padding-top: 1vw;
-	padding-bottom: 3vw;
-	font-size: 4vw;
-	font-family: 'Passion One', cursive, sans-serif;
-}
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 
 #thebody{
 	background-color: white;
 	cursor: url(../img/cursor.cur), auto;
-<<<<<<< HEAD
-=======
-}
-
-#help{
-	position: fixed !important;
-	text-align: right;
-	top: 20px;
-	right: 20px;
-	height: 35px;
-	width: 80px;
-	padding: 10px;
-	border: 2px solid black;
-	border-radius: 5px;
-	background-color: rgba(139,195,74,1);
-	font-size: 30px;	
-	font-family: 'Passion One', cursive, sans-serif;
-}
-
-#help-text{
-	font-family: 'Montserrat', sans-serif;
-	font-size: 15px;
-	text-align: left;
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 }

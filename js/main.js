@@ -2,31 +2,18 @@ var boxes = [ 2, 2,
 			  3, 3,
 			  4, 4,
 			  5, 5, 5,
-<<<<<<< HEAD
 			  6, 6, 6, 6, 6,
 			  7, 7, 7, 7, 7, 7, 7,
 			  8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
 			  9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
 		      10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
 		      10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 
-=======
-			  6, 6, 6,
-			  7, 7, 7, 7,
-			  8, 8, 8, 8, 8, 8, 8, 8,
-			  9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
-		      10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-		      11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 		      11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 		      12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 		      ];
-<<<<<<< HEAD
 
-=======
-			  //No of levels
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 
 var colrs = ["#b71c1c", "#006064", "#C51162", "#F50057", "#6A1B9A",
   "#880E4F", "#673AB7", "#303F9F", "#0D47A1", "#607D8B", "#2E7D32",
@@ -38,25 +25,15 @@ var colrs = ["#b71c1c", "#006064", "#C51162", "#F50057", "#6A1B9A",
   "#880E4F", "#673AB7", "#303F9F", "#0D47A1", "#607D8B", "#2E7D32",
   "#00695C", "#01579B", "#FF6F00", "#424242", "#FF5722", "#BF360C",
   "#795548", "#E65100", "#6200EA", "#9C27B0", "#9E9D24", "#263238",
-<<<<<<< HEAD
   "#d50000", "#0D47A1", "#4A148C", "#3E2723", "#00695C", "#827717"]; 
-=======
-  "#d50000", "#0D47A1", "#4A148C", "#3E2723", "#00695C", "#827717"]; //doublets to increase randomocity
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 
 
 var score = 0;
 var seconds;
 var temp;
-<<<<<<< HEAD
 var randomBox;
 var col;
 var opacy = 0.77;
-=======
-var randomBox //it has to be global for reasons
-var col;
-var opacy = 0.70;
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 
 var factorial = function (number){
 	if (number ===0 || number === 1)
@@ -64,10 +41,7 @@ var factorial = function (number){
 	return factorial(number-1)*number;
 };
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 var index = 0;
 var help = false;
 
@@ -94,10 +68,7 @@ function createSmallBox(total_extra_space, no_of_box){
 	bigbox.appendChild(SmallBox);
 }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 function scoreUpdater () {
 	 ScoreDiv = document.getElementById("score");
 	 ScoreDiv.innerHTML = "Score: " + score;
@@ -110,11 +81,7 @@ function randomBoxSelector() {
 	 
 	 if(index % 2 == 0)
 		{	 
-<<<<<<< HEAD
 			opacy = opacy + 0.004;	
-=======
-			opacy = opacy + 0.005;	
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 		}
 
 		 randomBox.onclick = function (){
@@ -137,7 +104,6 @@ function create(){
 	}
 	randomBoxSelector();
 }
-<<<<<<< HEAD
 
 
 function scoreplay () {
@@ -156,8 +122,6 @@ function scoreplay () {
 	 }
 	 
 }
-=======
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
  
 function countdown() {
 	seconds = document.getElementById('countdown').innerHTML;
@@ -168,31 +132,20 @@ function countdown() {
 		temp.innerHTML = "Game Over";
 		randomBox.style.backgroundColor = "black";
 		randomBox.onclick = null;
-<<<<<<< HEAD
 		scoreplay();
 		// window.alert("Your Score = " + score);
 		}
 
 	seconds--;
-        if (seconds == 0){
-            var game_over = document.getElementById('game_over');
+        if (seconds === 0){
+            var game_over = document.getElementById("game_over");
             game_over.play();
         }
         else{
 	    var tick = document.getElementById('tick');
-	    tick.volume = Math.max((60 - seconds) / 60, 0.7);
+	    tick.volume = Math.max((60 - seconds) / 60, 0.5);
 	    tick.play();
         }
-=======
-		window.alert("Your Score = " + score);
-		return;
-	}
-
-	seconds--;
-	var tick = document.getElementById('tick');
-	tick.volume = (60 - seconds) / 60;
-	tick.play();
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 	temp = document.getElementById('countdown');
 	temp.innerHTML = seconds;
 	timeoutMyOswego = setTimeout(countdown, 1000);
@@ -216,48 +169,34 @@ window.onload = function () {
 	start();
 };
 
-<<<<<<< HEAD
 
 window.onresize = function () {
 	location.reload();
 };
 
 
-=======
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 var populate_help = function () {
 	var help_obj = document.getElementById("help");
 	var help_obj_div = document.createElement('div');
 	help_obj_div.id = "help-text";
 
 	help_obj_text = "<p>Society is always hard on the odd ones and so is this game. Seperate as many odd boxes from the matrix as you can while the Timer is still ticking.</p>"+
-<<<<<<< HEAD
 					"<p>Try to differentiate as fast as you can to check your reflexes and sense of judgement.</p>" +
-					"<p>By: vigzmv </p>";
-=======
-					"<p>Try to differentiate as fast as you can to check your reflexes and sense of judgement.</p>";
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
+					"<p>By: htadg </p>";
 
 	help_obj_div.innerHTML += help_obj_text;
 
 	help_obj.appendChild(help_obj_div);
 };
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 var help_height = $("#help").height();
 var help_width = $("#help").width();
 
 $("#help").click(function () {
 	if (!help){
 		$("#help").animate({
-<<<<<<< HEAD
 			height: "240px",
-=======
-			height: "200px",
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
 			width: "300px"
 		}, 500);
 		populate_help();
@@ -271,8 +210,4 @@ $("#help").click(function () {
 		}, 500);
 		help = false;
 	}
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 5b8a8fca067e95c111ffcfc54a2d4f768a98a7a5
