@@ -233,16 +233,15 @@ function getLeaderBoard () {
     var url = "http://kube-server.herokuapp.com/score/api/v1/get";
     var xhr = createCORSRequest('GET', url);
     if (!xhr){
-        alert('CORS not supported');
+        alert('Please Update your Browser.');
         return;
     }
     xhr.onload = function () {
         console.log(xhr.responseText);
         leaderboard = xhr.responseText;
-        alert('Response from CORS request to ' + url);
     };
     xhr.onerror = function () {
-        alert('Woops, there was an error making the request.');
+        console.log('Woops, there was an error making the request.');
     };
     xhr.withCredentials = true;
     xhr.send();
@@ -250,6 +249,7 @@ function getLeaderBoard () {
 
 $("#leaderboard").click(function () {
     var leaderboard = leaderboard || getLeaderBoard();
-    console.log(leaderboard);
+    if(!leaderboard)
+        console.log('Getting Data from Server...');
 });
 
