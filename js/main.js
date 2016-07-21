@@ -248,7 +248,7 @@ function getLeaderBoard () {
 }
 
 $("#leaderboard").click(function () {
-    var leaderboard = leaderboard || getLeaderBoard();
+    leaderboard = leaderboard || getLeaderBoard();
     if(!leaderboard)
         console.log('Getting Data from Server...');
 });
