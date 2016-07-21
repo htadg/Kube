@@ -211,3 +211,22 @@ $("#help").click(function () {
 		help = false;
 	}
 });
+
+var leaderboard;
+
+function getLeaderBoard () {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "http://kube-server.herokuapp.com/score/api/v1/get",
+        success: function (result){
+            leaderboard = $.parseJSON(result);
+        }
+    });
+}
+
+$("#leaderboard").click(function () {
+    var leaderboard = leaderboard || getLeaderBoard();
+    console.log(leaderboard);
+});
+
