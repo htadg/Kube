@@ -217,8 +217,8 @@ var leaderboard;
 function getLeaderBoard () {
     var url = "http://kube-server.herokuapp.com/score/api/v1/get";
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://kube-server.herokuapp.com/score/api/v1/get', true);
-    xhr.withCredentials = true;
+    xhr.open('GET', url);
+    xhr.withCredentials = false;
     if (!xhr){
         console.log('Please Update your Browser.');
         return;
