@@ -214,26 +214,13 @@ $("#help").click(function () {
 
 var leaderboard;
 
-function createCORSRequest (method, url) {
-    var xhr = new XMLHttpRequest();
-    if ("withcredentials" in xhr) {
-        xhr.open(method, url, true);
-    }
-    else if (typeof XDomainRequest != "undefined"){
-        xhr = new XDomainRequest();
-        xhr.open(method, url);
-    }
-    else{
-        xhr = null;
-    }
-    return xhr;
-}
-
 function getLeaderBoard () {
     var url = "http://kube-server.herokuapp.com/score/api/v1/get";
-    var xhr = createCORSRequest('GET', url);
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://kube-server.herokuapp.com/score/api/v1/get', true);
+    xhr.withCredentials = true;
     if (!xhr){
-        alert('Please Update your Browser.');
+        console.log('Please Update your Browser.');
         return;
     }
     xhr.onload = function () {
@@ -243,7 +230,6 @@ function getLeaderBoard () {
     xhr.onerror = function () {
         console.log('Woops, there was an error making the request.');
     };
-    xhr.withCredentials = true;
     xhr.send();
 }
 
