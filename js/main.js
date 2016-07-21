@@ -211,31 +211,3 @@ $("#help").click(function () {
 		help = false;
 	}
 });
-
-var leaderboard;
-
-function getLeaderBoard () {
-    var url = "http://kube-server.herokuapp.com/score/api/v1/get";
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.withCredentials = false;
-    if (!xhr){
-        console.log('Please Update your Browser.');
-        return;
-    }
-    xhr.onload = function () {
-        console.log(xhr.responseText);
-        leaderboard = xhr.responseText;
-    };
-    xhr.onerror = function () {
-        console.log('Woops, there was an error making the request.');
-    };
-    xhr.send();
-}
-
-$("#leaderboard").click(function () {
-    leaderboard = leaderboard || getLeaderBoard();
-    if(!leaderboard)
-        console.log('Getting Data from Server...');
-});
-
