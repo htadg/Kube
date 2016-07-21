@@ -238,7 +238,7 @@ function getLeaderBoard () {
     }
     xhr.onload = function () {
         console.log(xhr.responseText);
-        leaderboard = $.parseJSON(xhr.responseText);
+        leaderboard = xhr.responseText;
         alert('Response from CORS request to ' + url);
     };
     xhr.onerror = function () {
