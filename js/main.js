@@ -214,15 +214,38 @@ $("#help").click(function () {
 
 var leaderboard;
 
+function createCORSRequest (method, url) {
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr) {
+        xhr.open(method, url, true);
+    }
+    else if (typeof XDomainRequest != "undefined"){
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+    }
+    else{
+        xhr = null;
+    }
+    return xhr;
+}
+
 function getLeaderBoard () {
-    $.ajax({
-        type: "GET",
-        dataType: "json",
-        url: "http://kube-server.herokuapp.com/score/api/v1/get",
-        success: function (result){
-            leaderboard = $.parseJSON(result);
-        }
-    });
+    var url = "http://kube-server.herokuapp.com/score/api/v1/get";
+    var xhr = createCORSRequest('GET', url);
+    if (!xhr){
+        alert('CORS not supported');
+        return;
+    }
+    xhr.onload = function () {
+        console.log(xhr.responseText);
+        leaderboard = $.parseJSON(xhr.responseText);
+        alert('Response from CORS request to ' + url);
+    };
+    xhr.onerror = function () {
+        alert('Woops, there was an error making the request.');
+    };
+    xhr.withCredentials = true;
+    xhr.send();
 }
 
 $("#leaderboard").click(function () {
