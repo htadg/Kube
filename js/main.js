@@ -216,7 +216,7 @@ var leaderboard;
 
 function createCORSRequest (method, url) {
     var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
+    if ("withcredentials" in xhr) {
         xhr.open(method, url, true);
     }
     else if (typeof XDomainRequest != "undefined"){
