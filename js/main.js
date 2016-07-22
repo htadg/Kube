@@ -33,6 +33,7 @@ var seconds;
 var temp;
 var randomBox;
 var col;
+var box_no;
 var opacy = 0.77;
 
 var factorial = function (number){
@@ -48,10 +49,16 @@ var help = false;
 var bigbox = document.getElementById("bigbox");
 var boxH = getComputedStyle(bigbox).getPropertyValue("height");
 
+var bigBox;
+
 var max_size = factorial(Math.max(...boxes));
 var bigBoxSize = boxH.slice(0,boxH.length - 2);
 
 function createSmallBox(total_extra_space, no_of_box){
+
+	var boxH = getComputedStyle(bigbox).getPropertyValue("height");
+
+	var bigBoxSize = boxH.slice(0,boxH.length - 2);
 	
 	var h = bigBoxSize - total_extra_space;
 
@@ -61,7 +68,7 @@ function createSmallBox(total_extra_space, no_of_box){
 
 	var SmallBox = document.createElement("div");
 
-	SmallBox.id = "SmallBox";
+	SmallBox.className = "SmallBox";
 	SmallBox.style.backgroundColor = col;
 	SmallBox.style.height = h;
 	SmallBox.style.width = h;	
@@ -74,9 +81,10 @@ function scoreUpdater () {
 	 ScoreDiv.innerHTML = "Score: " + score;
 }
 
-function randomBoxSelector() {
+function randomBoxSelector(known_no) {
 	 var allChilds = bigbox.childNodes;
-	 randomBox = allChilds[Math.floor((Math.random() * (boxes[index]*boxes[index])))];
+	 box_no = known_no || Math.floor((Math.random() * (boxes[index]*boxes[index])));
+	 randomBox = allChilds[box_no];
 	 randomBox.style.opacity = opacy;
 	 
 	 if(index % 2 == 0)
@@ -171,7 +179,15 @@ window.onload = function () {
 
 
 window.onresize = function () {
-	location.reload();
+	bigBox = document.getElementById('bigbox');
+	while(bigBox.firstChild){
+		bigBox.removeChild(bigBox.firstChild);
+	}
+	for(var i=0; i<boxes[index]*boxes[index]; i++){
+		var extra_spaces = 6 * boxes[index];
+		createSmallBox(extra_spaces, boxes[index]);
+	}
+	randomBoxSelector(box_no);
 };
 
 
