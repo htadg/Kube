@@ -251,7 +251,7 @@ $("#leaderboard").click(function () {
 	if (leaderboard == undefined){
         setInterval(function () { maintainConsistency(); }, 10*60*1000);
 		$.ajax({
-            url: "http://localhost:8000/api/v1/get/",
+            url: "http://kube-server.herokuapp.com/api/v1/get/",
             type: "GET",
             async: false,
             crossDomain: true,
