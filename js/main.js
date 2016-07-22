@@ -211,3 +211,77 @@ $("#help").click(function () {
 		help = false;
 	}
 });
+
+var leaderboard;
+var displaying = false;
+var point_height = $("#leaderboard").height();
+var point_width = $("#leaderboard").width();
+
+function populatePoints () {
+	var frame = document.getElementById('leaderboard');
+	var table = document.createElement('table');
+	table.id = "points-table";
+	var tableHeaders = document.createElement('thead');
+	tableHeaders.id = "table-header";
+	var headers = '<tr><th></th><th>Player</th><th>Score</th></tr>';
+
+	tableHeaders.innerHTML += headers;
+	var tableBody = document.createElement('tbody');
+	tableBody.id = "table-body";
+	var bodyContent = '';
+	for (var i=1; i <= leaderboard.length; i++){
+		bodyContent += '<tr id="player' + i + '">';
+		bodyContent += '<td>' + i +'</td>';
+		bodyContent += '<td>' + leaderboard[i - 1]['name'] + '</td>';
+		bodyContent += '<td>' + leaderboard[i - 1]['score'] + '</td>';
+		bodyContent += '</tr>';
+	}
+	tableBody.innerHTML += bodyContent;
+	table.appendChild(tableHeaders);
+	table.appendChild(tableBody);
+
+	frame.appendChild(table);
+}
+
+function maintainConsistency () {
+	leaderboard = undefined;
+}
+
+$("#leaderboard").click(function () {
+	if (leaderboard == undefined){
+        setInterval(function () { maintainConsistency(); }, 10*60*1000);
+		$.ajax({
+            url: "http://localhost:8000/api/v1/get/",
+            type: "GET",
+            async: false,
+            crossDomain: true,
+            withCredentials: true,
+            dataType: "json",
+            success: function (response) {
+            	console.log('calling api...');
+                leaderboard = response;
+				console.log(leaderboard);
+            },
+            error: function (xhr, status) {
+                alert("error");
+            }
+        });
+	}
+
+	if (!displaying){
+		$("#leaderboard").animate({
+			height: "40vw",
+			width: "25vw"
+		}, 500);
+		populatePoints();
+		displaying = true;
+	}
+	else{
+		$("#points-table").remove();
+		$('#leaderboard').animate({
+			height: ""+point_height+"px",
+			width: ""+point_width+"px"
+		}, 500);
+		displaying = false;
+	}
+});

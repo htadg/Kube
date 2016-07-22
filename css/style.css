@@ -36,7 +36,55 @@
 		background-color: rgba(139,195,74,1);
 		font-size: 6vw;	
 		font-family: 'Passion One', cursive, sans-serif;
+		z-index: 10;
 	}
+
+	#leaderboard{
+		position: fixed !important;
+		text-align: right;
+		bottom: 5px;
+		right: 5px;
+		height: 3vw;
+		width: 20vw;
+		padding: 8px;
+		border: 2px solid black;
+		border-radius: 5px;
+		background-color: rgba(139,195,74,1);
+		font-size: 3vw;	
+		font-family: 'Passion One', cursive, sans-serif;
+	}
+
+		#points-table{
+			text-align: center;
+			font-size: 2vw;
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		#table-body > tr{
+			margin-bottom: 1vw; 
+			border-radius: 2px;
+		}
+
+		#table-header{
+			font-family: 'Aladin', cursive;
+			font-size: 2.7vw;
+		}
+
+		#table-body{
+			font-family: 'Secular One', sans-serif;
+			font-size: 2vw;
+		}
+
+		#player1{
+			font-size: 2.5vw;
+		}
+		#player2{
+			font-size: 2.3vw;
+		}
+		#player3{
+			font-size: 2.2vw;
+		}
 
 	#help-text{
 		font-family: 'Montserrat', sans-serif;
@@ -90,6 +138,54 @@
 			background-color: rgba(139,195,74,1);
 			font-size: 3vw;	
 			font-family: 'Passion One', cursive, sans-serif;
+			z-index: 10;
+		}
+
+		#leaderboard{
+			position: fixed !important;
+			text-align: right;
+			bottom: 5px;
+			right: 5px;
+			height: 3vw;
+			width: 20vw;
+			padding: 8px;
+			border: 2px solid black;
+			border-radius: 5px;
+			background-color: rgba(139,195,74,1);
+			font-size: 3vw;	
+			font-family: 'Passion One', cursive, sans-serif;
+		}
+
+		#points-table{
+			text-align: center;
+			font-size: 2vw;
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		#table-body > tr{
+			margin-bottom: 1vw; 
+			border-radius: 2px;
+		}
+
+		#table-header{
+			font-family: 'Aladin', cursive;
+			font-size: 2.7vw;
+		}
+
+		#table-body{
+			font-family: 'Secular One', sans-serif;
+			font-size: 2vw;
+		}
+
+		#player1{
+			font-size: 2.5vw;
+		}
+		#player2{
+			font-size: 2.3vw;
+		}
+		#player3{
+			font-size: 2.2vw;
 		}
 
 		#help-text{
