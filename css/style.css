@@ -124,6 +124,24 @@
 		padding-top: 3px;
 		padding-bottom: 3px;
 	}
+
+	#submit-score{
+		background-color: rgba(76,175,80,1);
+		border-radius: 7px;
+		width: 70%;
+		margin: auto;
+		padding: 6px;
+		font-size: 4.5vw;
+	}
+
+	#submit-score:hover{
+		background-color: rgba(76,175,80,0.9);
+	}
+
+	#replay{
+		margin: auto;
+		font-size: 4.5vw;
+	}
 	
 		#help{
 			position: fixed !important;

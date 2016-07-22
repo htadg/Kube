@@ -50,6 +50,7 @@ var bigbox = document.getElementById("bigbox");
 var boxH = getComputedStyle(bigbox).getPropertyValue("height");
 
 var bigBox;
+var gameOver = false;
 
 var max_size = factorial(Math.max(...boxes));
 var bigBoxSize = boxH.slice(0,boxH.length - 2);
@@ -94,7 +95,7 @@ function randomBoxSelector(known_no) {
 
 		 randomBox.onclick = function (){
 	 	 if(index == 1){
-	 	 	document.getElementById('countdown').innerHTML = 60 + 1;
+	 	 	document.getElementById('countdown').innerHTML = 1 + 1;
 	 	 	 //Set the time here.
 	 	 	countdown();
 	 	 }
@@ -113,8 +114,13 @@ function create(){
 	randomBoxSelector();
 }
 
+var submitScore = function () {
+	console.log('Thanks for submitting Score.');
+	$('#bigbox').html('');
+}
 
 function scoreplay () {
+	var bigBoxSize = getComputedStyle(bigbox).getPropertyValue("height").slice(0,boxH.length - 2);
 	 bigbox.style.backgroundColor = "black";
 	 bigbox.style.fontSize = bigBoxSize * 0.13 + "px";
 	 bigbox.style.color = "white";
@@ -123,17 +129,21 @@ function scoreplay () {
 
 	 bigbox.innerHTML = "</br></br>Your Score: " + score;
 
-	 bigbox.innerHTML = bigbox.innerHTML + "</br></br> Tap to Replay";
+	 bigbox.innerHTML = bigbox.innerHTML + "</br><div id='submit-score'> Submit Score </div></br> <div id='replay'>Tap to Replay</div>";
 
-	 bigbox.onclick = function () {
+	 $('#submit-score').click( function () {
+	 	submitScore();
+	 });
+
+	 $('#replay').click( function () {
 	 	 location.reload();
-	 }
+	 });
 	 
 }
  
-function countdown() {
+function countdown(second) {
 	seconds = document.getElementById('countdown').innerHTML;
-	seconds = parseInt(seconds, 10);
+	seconds = second || parseInt(seconds, 10);
 
 	if (seconds == 1) {
 		temp = document.getElementById('countdown');
@@ -142,21 +152,23 @@ function countdown() {
 		randomBox.onclick = null;
 		scoreplay();
 		// window.alert("Your Score = " + score);
-		}
+	}
 
 	seconds--;
-        if (seconds === 0){
-            var game_over = document.getElementById("game_over");
-            game_over.play();
-        }
-        else{
-	    var tick = document.getElementById('tick');
-	    tick.volume = Math.max((60 - seconds) / 60, 0.5);
-	    tick.play();
-        }
-	temp = document.getElementById('countdown');
-	temp.innerHTML = seconds;
-	timeoutMyOswego = setTimeout(countdown, 1000);
+    if (seconds === 0){
+        var game_over = document.getElementById("game_over");
+        gameOver = true;
+        game_over.play();
+    }
+    else{
+		var tick = document.getElementById('tick');
+		volume = Math.max((60 - seconds) / 60, 0.5);
+		tick.volume = (volume <= 1)? volume : 1;
+		tick.play();
+		temp = document.getElementById('countdown');
+		temp.innerHTML = seconds;
+		timeoutMyOswego = setTimeout(countdown, 1000);
+	}
 } 
 
 function start(){
@@ -179,15 +191,20 @@ window.onload = function () {
 
 
 window.onresize = function () {
-	bigBox = document.getElementById('bigbox');
-	while(bigBox.firstChild){
-		bigBox.removeChild(bigBox.firstChild);
+	if (!gameOver){
+		bigBox = document.getElementById('bigbox');
+		while(bigBox.firstChild){
+			bigBox.removeChild(bigBox.firstChild);
+		}
+		for(var i=0; i<boxes[index]*boxes[index]; i++){
+			var extra_spaces = 6 * boxes[index];
+			createSmallBox(extra_spaces, boxes[index]);
+		}
+		randomBoxSelector(box_no);
 	}
-	for(var i=0; i<boxes[index]*boxes[index]; i++){
-		var extra_spaces = 6 * boxes[index];
-		createSmallBox(extra_spaces, boxes[index]);
+	else{
+		countdown(1);
 	}
-	randomBoxSelector(box_no);
 };
 
 
