@@ -34,6 +34,7 @@ var temp;
 var randomBox;
 var col;
 var box_no;
+var name;
 var opacy = 0.77;
 
 var factorial = function (number){
@@ -50,8 +51,10 @@ var bigbox = document.getElementById("bigbox");
 var boxH = getComputedStyle(bigbox).getPropertyValue("height");
 
 var bigBox;
+var gameOver = false;
+var submitting = false;
+var thanking = false;
 
-var max_size = factorial(Math.max(...boxes));
 var bigBoxSize = boxH.slice(0,boxH.length - 2);
 
 function createSmallBox(total_extra_space, no_of_box){
@@ -94,7 +97,7 @@ function randomBoxSelector(known_no) {
 
 		 randomBox.onclick = function (){
 	 	 if(index == 1){
-	 	 	document.getElementById('countdown').innerHTML = 60 + 1;
+	 	 	document.getElementById('countdown').innerHTML = 10 + 1;
 	 	 	 //Set the time here.
 	 	 	countdown();
 	 	 }
@@ -113,8 +116,58 @@ function create(){
 	randomBoxSelector();
 }
 
+function checkName () {
+	if (name != undefined && name != '' && name != 'undefined')
+		$('.name-input').val(name);
+}
+
+var submitScore = function () {
+	submitting = true;
+	$('#bigbox').html('');
+	var form = '<div class="form">';
+	form += '<img class="avatar" src="https://api.adorable.io/avatars/129/Kube.png">';
+	form += '<div class="your-name"><input class="name-input" type="text" placeholder="Your Name"/></div>';
+	form += '<div class="name-score">Score: ' + score +'</div>';
+	form += '<div class="name-submit btn">Submit</div>';
+	form += '<div class="name-back btn">Back</div>';
+
+	$('#bigbox').html(form);
+
+	checkName();
+
+	if ($('name-input').val() != "" && $('.name-input').val() != " "){
+		var url = "https://api.adorable.io/avatars/129/" + $('.name-input').val() + ".png";
+		$('.avatar').attr({'src': url});
+	}
+
+	var boxH = getComputedStyle(bigbox).getPropertyValue("height");
+
+	var bigBoxSize = boxH.slice(0,boxH.length - 2);
+
+	$('.avatar').css('width', '20%');
+	$('.avatar').css('height', 'auto');
+
+	$('.name-input').bind('keyup', function () {
+		var url = "https://api.adorable.io/avatars/129/" + $('.name-input').val() + ".png";
+		$('.avatar').attr({'src': url});
+	});
+
+	$('.name-submit').click(function () {
+		name = $('.name-input').val();
+		submit();
+		submitting = false;
+		thanking = true;
+		postSubmit();
+	});
+
+	$('.name-back').click(function () {
+		countdown(1);
+	});
+
+};
 
 function scoreplay () {
+	 var bigBoxSize = getComputedStyle(bigbox).getPropertyValue("height").slice(0,boxH.length - 2);
 	 bigbox.style.backgroundColor = "black";
 	 bigbox.style.fontSize = bigBoxSize * 0.13 + "px";
 	 bigbox.style.color = "white";
@@ -123,17 +176,21 @@ function scoreplay () {
 
 	 bigbox.innerHTML = "</br></br>Your Score: " + score;
 
-	 bigbox.innerHTML = bigbox.innerHTML + "</br></br> Tap to Replay";
+	 bigbox.innerHTML = bigbox.innerHTML + "</br><div id='submit-score'> Submit Score </div></br> <div id='replay'>Tap to Replay</div>";
 
-	 bigbox.onclick = function () {
+	 $('#submit-score').click( function () {
+	 	submitScore();
+	 });
+
+	 $('#replay').click( function () {
 	 	 location.reload();
-	 }
+	 });
 	 
 }
  
-function countdown() {
+function countdown(second) {
 	seconds = document.getElementById('countdown').innerHTML;
-	seconds = parseInt(seconds, 10);
+	seconds = second || parseInt(seconds, 10);
 
 	if (seconds == 1) {
 		temp = document.getElementById('countdown');
@@ -142,21 +199,23 @@ function countdown() {
 		randomBox.onclick = null;
 		scoreplay();
 		// window.alert("Your Score = " + score);
-		}
+	}
 
 	seconds--;
-        if (seconds === 0){
-            var game_over = document.getElementById("game_over");
-            game_over.play();
-        }
-        else{
-	    var tick = document.getElementById('tick');
-	    tick.volume = Math.max((60 - seconds) / 60, 0.5);
-	    tick.play();
-        }
-	temp = document.getElementById('countdown');
-	temp.innerHTML = seconds;
-	timeoutMyOswego = setTimeout(countdown, 1000);
+    if (seconds === 0){
+        var game_over = document.getElementById("game_over");
+        gameOver = true;
+        game_over.play();
+    }
+    else{
+		var tick = document.getElementById('tick');
+		volume = Math.max((60 - seconds) / 60, 0.5);
+		tick.volume = (volume <= 1)? volume : 1;
+		tick.play();
+		temp = document.getElementById('countdown');
+		temp.innerHTML = seconds;
+		timeoutMyOswego = setTimeout(countdown, 1000);
+	}
 } 
 
 function start(){
@@ -179,15 +238,30 @@ window.onload = function () {
 
 
 window.onresize = function () {
-	bigBox = document.getElementById('bigbox');
-	while(bigBox.firstChild){
-		bigBox.removeChild(bigBox.firstChild);
+	if (gameOver){
+		if (!submitting){
+			if(thanking){
+				postSubmit();
+			}
+			else{
+				countdown(1);
+			}
+		}
+		else{
+			submitScore();
+		}
 	}
-	for(var i=0; i<boxes[index]*boxes[index]; i++){
-		var extra_spaces = 6 * boxes[index];
-		createSmallBox(extra_spaces, boxes[index]);
+	else{
+		bigBox = document.getElementById('bigbox');
+		while(bigBox.firstChild){
+			bigBox.removeChild(bigBox.firstChild);
+		}
+		for(var i=0; i<boxes[index]*boxes[index]; i++){
+			var extra_spaces = 6 * boxes[index];
+			createSmallBox(extra_spaces, boxes[index]);
+		}
+		randomBoxSelector(box_no);
 	}
-	randomBoxSelector(box_no);
 };
 
 
@@ -267,11 +341,10 @@ $("#leaderboard").click(function () {
 	if (leaderboard == undefined){
         setInterval(function () { maintainConsistency(); }, 10*60*1000);
 		$.ajax({
-            url: "http://kube-server.herokuapp.com/api/v1/get/",
+            url: "http://kube-server.herokuapp.com/api/v1/score/",
             type: "GET",
             async: false,
             crossDomain: true,
-            withCredentials: true,
             dataType: "json",
             success: function (response) {
             	console.log('calling api...');
@@ -285,9 +358,10 @@ $("#leaderboard").click(function () {
 	}
 
 	if (!displaying){
+		var suffix = (window.innerHeight > window.innerWidth)? "vh": "vw";
 		$("#leaderboard").animate({
-			height: "40vw",
-			width: "25vw"
+			height: "40"+suffix,
+			width: "25"+suffix
 		}, 500);
 		populatePoints();
 		displaying = true;
@@ -301,3 +375,33 @@ $("#leaderboard").click(function () {
 		displaying = false;
 	}
 });
+
+var submit  = function () {
+	if (name == '')
+		name = "Anonymous";
+	$.ajax({
+            url: "http://kube-server.herokuapp.com/api/v1/score/",
+            type: "POST",
+            async: true,
+            crossDomain: true,
+            withCredentials: true,
+            dataType: "json",
+            data: {"name":name , "score": score},
+            success: function (response) {
+            	console.log('Score Submitted....');
+            	console.log(response);
+            },
+            error: function (xhr, status) {
+                alert("Check your Internet Connection.");
+            }
+        });
+};
+
+var postSubmit = function () {
+	$('#bigbox').html('');
+	var thanks = '<div class="thanks">Thank You <br /> <br/>Tap to Replay</div>';
+	$('#bigbox').html(thanks);
+	$('.thanks').click(function () {
+		location.reload();
+	});
+};
