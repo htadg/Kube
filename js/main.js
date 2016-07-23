@@ -341,7 +341,7 @@ $("#leaderboard").click(function () {
 	if (leaderboard == undefined){
         setInterval(function () { maintainConsistency(); }, 10*60*1000);
 		$.ajax({
-            url: "http://localhost:8000/api/v1/score/",
+            url: "http://kube-server.herokuapp.com/api/v1/score/",
             type: "GET",
             async: false,
             crossDomain: true,
@@ -380,7 +380,7 @@ var submit  = function () {
 	if (name == '')
 		name = "Anonymous";
 	$.ajax({
-            url: "http://localhost:8000/api/v1/score/",
+            url: "http://kube-server.herokuapp.com/api/v1/score/",
             type: "POST",
             async: true,
             crossDomain: true,
