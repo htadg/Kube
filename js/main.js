@@ -37,13 +37,6 @@ var box_no;
 var name;
 var opacy = 0.77;
 
-var factorial = function (number){
-	if (number ===0 || number === 1)
-		return 1;
-	return factorial(number-1)*number;
-};
-
-
 var index = 0;
 var help = false;
 
@@ -75,6 +68,7 @@ function createSmallBox(total_extra_space, no_of_box){
 	SmallBox.style.backgroundColor = col;
 	SmallBox.style.height = h;
 	SmallBox.style.width = h;	
+	SmallBox.style.float = 'left';
 	bigbox.appendChild(SmallBox);
 }
 
@@ -110,7 +104,7 @@ function randomBoxSelector(known_no) {
 function create(){
 	col = colrs[Math.floor((Math.random() * (colrs.length)))];
 	for(var i=0; i<boxes[index]*boxes[index]; i++){
-		var extra_spaces = 6 * boxes[index];
+		var extra_spaces = 5 * boxes[index];
 		createSmallBox(extra_spaces, boxes[index]);
 	}
 	randomBoxSelector();
@@ -257,7 +251,7 @@ window.onresize = function () {
 			bigBox.removeChild(bigBox.firstChild);
 		}
 		for(var i=0; i<boxes[index]*boxes[index]; i++){
-			var extra_spaces = 6 * boxes[index];
+			var extra_spaces = 5 * boxes[index];
 			createSmallBox(extra_spaces, boxes[index]);
 		}
 		randomBoxSelector(box_no);
