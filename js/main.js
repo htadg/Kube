@@ -53,6 +53,7 @@ var boxH = getComputedStyle(bigbox).getPropertyValue("height");
 var bigBox;
 var gameOver = false;
 var submitting = false;
+var thanking = false;
 
 var bigBoxSize = boxH.slice(0,boxH.length - 2);
 
@@ -96,7 +97,7 @@ function randomBoxSelector(known_no) {
 
 		 randomBox.onclick = function (){
 	 	 if(index == 1){
-	 	 	document.getElementById('countdown').innerHTML = 60 + 1;
+	 	 	document.getElementById('countdown').innerHTML = 10 + 1;
 	 	 	 //Set the time here.
 	 	 	countdown();
 	 	 }
@@ -145,6 +146,24 @@ var submitScore = function () {
 
 	$('.avatar').css('width', '20%');
 	$('.avatar').css('height', 'auto');
+
+	$('.name-input').bind('keyup', function () {
+		var url = "https://api.adorable.io/avatars/129/" + $('.name-input').val() + ".png";
+		$('.avatar').attr({'src': url});
+	});
+
+	$('.name-submit').click(function () {
+		name = $('.name-input').val();
+		submit();
+		submitting = false;
+		thanking = true;
+		postSubmit();
+	});
+
+	$('.name-back').click(function () {
+		countdown(1);
+	});
+
 };
 
 function scoreplay () {
@@ -221,7 +240,12 @@ window.onload = function () {
 window.onresize = function () {
 	if (gameOver){
 		if (!submitting){
-			countdown(1);
+			if(thanking){
+				postSubmit();
+			}
+			else{
+				countdown(1);
+			}
 		}
 		else{
 			submitScore();
@@ -317,7 +341,7 @@ $("#leaderboard").click(function () {
 	if (leaderboard == undefined){
         setInterval(function () { maintainConsistency(); }, 10*60*1000);
 		$.ajax({
-            url: "http://kube-server.herokuapp.com/api/v1/score/",
+            url: "http://localhost:8000/api/v1/score/",
             type: "GET",
             async: false,
             crossDomain: true,
@@ -352,7 +376,9 @@ $("#leaderboard").click(function () {
 	}
 });
 
-var submit  = function (name) {
+var submit  = function () {
+	if (name == '')
+		name = "Anonymous";
 	$.ajax({
             url: "http://localhost:8000/api/v1/score/",
             type: "POST",
@@ -360,7 +386,7 @@ var submit  = function (name) {
             crossDomain: true,
             withCredentials: true,
             dataType: "json",
-            data: {"name":name, "score": ""+score},
+            data: {"name":name , "score": score},
             success: function (response) {
             	console.log('Score Submitted....');
             	console.log(response);
@@ -369,4 +395,13 @@ var submit  = function (name) {
                 alert("Check your Internet Connection.");
             }
         });
-}
+};
+
+var postSubmit = function () {
+	$('#bigbox').html('');
+	var thanks = '<div class="thanks">Thank You <br /> <br/>Tap to Replay</div>';
+	$('#bigbox').html(thanks);
+	$('.thanks').click(function () {
+		location.reload();
+	});
+};
