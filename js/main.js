@@ -97,7 +97,7 @@ function randomBoxSelector(known_no) {
 
 		 randomBox.onclick = function (){
 	 	 if(index == 1){
-	 	 	document.getElementById('countdown').innerHTML = 10 + 1;
+	 	 	document.getElementById('countdown').innerHTML = 60 + 1;
 	 	 	 //Set the time here.
 	 	 	countdown();
 	 	 }
