@@ -56,6 +56,8 @@ var submitting = false;
 var thanking = false;
 var populated = false;
 
+console.log('isMobile: ' + isMobile);
+
 var bigBoxSize = boxH.slice(0,boxH.length - 2);
 
 function createSmallBox(total_extra_space, no_of_box){
@@ -99,7 +101,7 @@ function randomBoxSelector(known_no) {
 
 		 randomBox.onclick = function (){
 	 	 if(index == 1){
-	 	 	document.getElementById('countdown').innerHTML = 3 + 1;
+	 	 	document.getElementById('countdown').innerHTML = 60 + 1;
 	 	 	 //Set the time here.
 	 	 	countdown();
 	 	 }
@@ -246,13 +248,12 @@ window.onresize = function () {
 				postSubmit();
 			}
 			else{
-				if (! isMobile)
-					console.log("isMobile: "+isMobile);
-					countdown(1);
+				countdown(1);
 			}
 		}
 		else{
-			submitScore();
+			if (!isMobile)
+				submitScore();
 		}
 	}
 	else{
