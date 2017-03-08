@@ -322,7 +322,7 @@ function populatePoints () {
 
 	var minify = function(name){
 		var suffix = "";
-		if(name.length > 7)	suffix = "...";
+		if(name.length > 8)	suffix = "..";
 		return name.slice(0, Math.min(7, name.length)) + suffix;
 	};
 
