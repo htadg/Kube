@@ -400,7 +400,7 @@ var submit  = function () {
 	if (name == '')
 		name = "Anonymous";
 	$.ajax({
-            url: "http://kube-server.herokuapp.com/api/v1/score/",
+            url: "https://kube-server.herokuapp.com/api/v1/score/",
             type: "POST",
             async: true,
             crossDomain: true,
